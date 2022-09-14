@@ -1,0 +1,41 @@
+body {
+  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(162, 158, 158));
+}
+
+.card {
+  height: 400px;
+  position: relative;
+  padding: 20px;
+  margin-right: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;
+  border: 4px solid #f1066c;
+  margin-bottom: 20px;
+    background-size: cover;
+  
+  @include media {
+    height: 500px;
+  }
+}
+
+.inner {
+  font-size: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  
+  @include media {
+    width: 50%;
+    height: 100%;
+  }
+}
+
+.paint_block {
+  opacity: 80%;
+  height: 400px;
+  width: 300px;
+  background-color: blanchedalmond;
+}
