@@ -2,6 +2,15 @@ body {
   background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(162, 158, 158));
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  text-align: center;
+
+}
+
 .card {
   height: 400px;
   position: relative;

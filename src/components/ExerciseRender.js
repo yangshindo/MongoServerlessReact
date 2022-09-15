@@ -7,7 +7,7 @@ function ExerciseRender(props) {
     }
 
     return (
-    
+ 
     <div className="card" style={{  
       backgroundImage: "url(" + props.style + ")"}}>
       <div className="paint_block">
@@ -23,8 +23,8 @@ function ExerciseRender(props) {
         <button type="button" className="btn btn-dark" onClick={handleClick}> Delete </button>
       </div>
         <br />
-      </div>
-       
+
+                </div>
                 </div>
     )
 }

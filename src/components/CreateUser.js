@@ -33,15 +33,14 @@ function CreateUser() {
         <div className="container">
             <h3>Create New User</h3>
             <form onSubmit={submitHandler}>
-                <div className="form-group">
-                    <label>Username: </label>
-                    <br />
-                    <input ref={userRef} type="text" className="form-control w-25" maxlength="18"></input>
-                    </div>
-                    <br />
-                    <div className="form-group">
-                    <input type="submit" value="Submit" className="btn btn-dark"></input>
-                </div>
+<br />
+                <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+  </div>
+  <input ref={userRef} type="text" class="form-control" aria-label="username"></input>&nbsp;&nbsp;&nbsp;
+  <input type="submit" value="Submit" className="btn btn-dark"></input>
+</div>
             </form>
         </div>
     )
