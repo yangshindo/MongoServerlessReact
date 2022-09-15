@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import ExerciseRender from './ExerciseRender'
+import React, { useState, useEffect, useContext } from 'react';
 import * as Realm from 'realm-web'
 import swal from 'sweetalert'
+import { useNavigate } from "react-router-dom";
+
+import { ExerciseDataContext } from "../contexts/ExerciseDataContext"
+import ExerciseRender from './ExerciseRender'
 
 
 function ExercisesList() {
 
     const [exerciselist, setExerciselist] = useState([])
     const [exerciseDescriptionsList, setExerciseDescriptionsList] = useState([])
+    //const [ exerciseData, setExerciseData ] = useContext(ExerciseDataContext)
 
+    const navigate = useNavigate();
     
     useEffect(() => {
     async function fetchData() {
@@ -19,8 +24,6 @@ function ExercisesList() {
         const user = await app.logIn(credentials);
         const newList = await user.functions.exercisesListHandler();
         setExerciselist(newList)
-        const fetchedExerciseDescriptionsList = await user.functions.exerciseDescriptionsHandler();
-        setExerciseDescriptionsList(fetchedExerciseDescriptionsList)
     } 
     catch(err) 
     {
@@ -48,6 +51,24 @@ async function deleteExercise(id) {
 }
 }
 
+/*
+async function editExercise(id) {
+    const app = new Realm.App({ id: process.env.REACT_APP_MONGO_REALM_ID });
+    const credentials = Realm.Credentials.anonymous();
+    try 
+    {
+        const user = await app.logIn(credentials);
+        const fetchedData = await user.functions.editHandler(id);
+        setExerciseData(fetchedData);
+        navigate("/create")
+    } 
+    catch(err) 
+    {
+  console.error("Failed to log in", err);
+}
+}
+*/
+
 
     function createExercise(ex) {
         if (ex) {
@@ -60,6 +81,8 @@ async function deleteExercise(id) {
             date={ex.date}
             username={ex.username}
             onDelete={deleteExercise}
+            text={ex.text}
+            //onEdit={editExercise}
             style={ex.style}
             />
         )

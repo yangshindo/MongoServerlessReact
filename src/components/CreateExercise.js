@@ -10,12 +10,14 @@ import TimePicker from "react-time-picker";
 function CreateExercise() {
   const usernameRef = useRef();
   const descriptionRef = useRef();
+  const textRef = useRef()
 
   const [date, setDate] = useState("");
   const [userlist, setUserlist] = useState();
   const [exerciseDescriptionsList, setExerciseDescriptionsList] = useState();
   const [startDuration, setStartDuration] = useState();
   const [endDuration, setEndDuration] = useState();
+  const [text, setText] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -40,6 +42,7 @@ function CreateExercise() {
     event.preventDefault();
     const updatedUsername = usernameRef.current.value;
     const updatedDescription = descriptionRef.current.value;
+    const updatedText = textRef.current.value;
     const fullDuration = `Start ${startDuration}h | End ${endDuration}h`;
 
     const numeric1 = Number(startDuration.replace(/\D/g, ""));
@@ -50,6 +53,7 @@ function CreateExercise() {
       description: updatedDescription,
       duration: fullDuration,
       date: date.toLocaleString("pt-BR").split(" ")[0],
+      text: updatedText
     };
 
     const app = new Realm.App({ id: process.env.REACT_APP_MONGO_REALM_ID });
@@ -61,17 +65,17 @@ function CreateExercise() {
           "Error! Exercise start time is set to be after the ending time. Please make sure you set start and end times correctly."
         );
       } else {
-        if (exercise.description === "Run 🏃") {
+        if (exercise.description === "Run") {
           exercise.style = "https://i.imgur.com/cYNjll3.jpg";
-        } else if (exercise.description === "Dance 💃") {
+        } else if (exercise.description === "Dance") {
           exercise.style = "https://i.imgur.com/adHtKG8.jpg";
-        } else if (exercise.description === "Swim 🏊") {
+        } else if (exercise.description === "Swim") {
           exercise.style = "https://i.imgur.com/hCYZD92.jpg";
-        } else if (exercise.description === "Lift 🏋") {
+        } else if (exercise.description === "Lift") {
           exercise.style = "https://i.imgur.com/xnEAP8H.jpg";
-        } else if (exercise.description === "Bike 🚴️") {
+        } else if (exercise.description === "Bike") {
           exercise.style = "https://i.imgur.com/kMLpoMi.jpg";
-        } else if (exercise.description === "Climb 🧗") {
+        } else if (exercise.description === "Climb") {
           exercise.style = "https://i.imgur.com/Jepp0Lx.jpg";
         }
         user.functions.createExerciseHandler(exercise);
@@ -156,7 +160,8 @@ function CreateExercise() {
             <br />
 
           </div>
-
+          <label for="textarea" class="form-label">Description</label>
+          <input ref={textRef} type="text" class="form-control" id="textarea" maxlength="45"></input>
             <br />
             <input
               type="submit"
