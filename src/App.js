@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import ExercisesList from "./components/ExercisesList";
 import CreateExercise from "./components/CreateExercise.js";
 import CreateUser from "./components/CreateUser"
+import EditExercise from "./components/EditExercise"
 import ExerciseDataContextProvider from "./contexts/ExerciseDataContext";
 
 
@@ -19,6 +20,7 @@ function App() {
     <Route path="/" exact element={<ExercisesList />} />
     <Route path="create" element={<CreateExercise />} />
     <Route path="/user" element={<CreateUser />} />
+    <Route path="/edit" element={<EditExercise/>} />
     </Routes>
   </Router>
   </ExerciseDataContextProvider>

@@ -10,8 +10,7 @@ import ExerciseRender from './ExerciseRender'
 function ExercisesList() {
 
     const [exerciselist, setExerciselist] = useState([])
-    const [exerciseDescriptionsList, setExerciseDescriptionsList] = useState([])
-    //const [ exerciseData, setExerciseData ] = useContext(ExerciseDataContext)
+    const { exerciseData, setExerciseData } = useContext(ExerciseDataContext)
 
     const navigate = useNavigate();
     
@@ -51,23 +50,12 @@ async function deleteExercise(id) {
 }
 }
 
-/*
+//a função não edita o exercício em si mas salva no context o objeto e então navega para a página de edição 
 async function editExercise(id) {
-    const app = new Realm.App({ id: process.env.REACT_APP_MONGO_REALM_ID });
-    const credentials = Realm.Credentials.anonymous();
-    try 
-    {
-        const user = await app.logIn(credentials);
-        const fetchedData = await user.functions.editHandler(id);
-        setExerciseData(fetchedData);
-        navigate("/create")
-    } 
-    catch(err) 
-    {
-  console.error("Failed to log in", err);
+    setExerciseData(exerciselist.filter(exercise => id === exercise._id))
+    navigate("/edit")
 }
-}
-*/
+
 
 
     function createExercise(ex) {
@@ -82,7 +70,7 @@ async function editExercise(id) {
             username={ex.username}
             onDelete={deleteExercise}
             text={ex.text}
-            //onEdit={editExercise}
+            onEdit={editExercise}
             style={ex.style}
             />
         )
