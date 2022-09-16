@@ -6,10 +6,12 @@ import Navbar from "./components/Navbar";
 import ExercisesList from "./components/ExercisesList";
 import CreateExercise from "./components/CreateExercise.js";
 import CreateUser from "./components/CreateUser"
+import ExerciseDataContextProvider from "./contexts/ExerciseDataContext";
 
 
 function App() {
   return (
+    <ExerciseDataContextProvider>
   <Router>
     <Navbar />
     <br/>
@@ -19,6 +21,7 @@ function App() {
     <Route path="/user" element={<CreateUser />} />
     </Routes>
   </Router>
+  </ExerciseDataContextProvider>
   );
 }
 

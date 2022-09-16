@@ -4,8 +4,9 @@ export const ExerciseDataContext = createContext();
 
 function ExerciseDataContextProvider(props) {
   const [exerciseData, setExerciseData] = useState();
+  const exerciseTypesList = ["Run", "Swim", "Lift", "Bike", "Dance", "Climb"]
 
-  const value = { exerciseData, setExerciseData };
+  const value = { exerciseData, setExerciseData, exerciseTypesList };
 
   return (
     <ExerciseDataContext.Provider value={value}>

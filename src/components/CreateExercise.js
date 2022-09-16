@@ -1,20 +1,24 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import swal from "sweetalert";
 import * as Realm from "realm-web";
 import TimePicker from "react-time-picker";
-
+import { ExerciseDataContext } from "../contexts/ExerciseDataContext";
 
 
 function CreateExercise() {
+  //Context
+  const { exerciseTypesList } = useContext(ExerciseDataContext);
+
+  //Refs
   const usernameRef = useRef();
   const descriptionRef = useRef();
   const textRef = useRef()
 
+  //States
   const [date, setDate] = useState("");
   const [userlist, setUserlist] = useState();
-  const [exerciseDescriptionsList, setExerciseDescriptionsList] = useState();
   const [startDuration, setStartDuration] = useState();
   const [endDuration, setEndDuration] = useState();
   const [text, setText] = useState();
@@ -28,9 +32,6 @@ function CreateExercise() {
         const user = await app.logIn(credentials);
         const fetchedUserList = await user.functions.userListHandler();
         setUserlist(fetchedUserList.slice(0, 20));
-        const fetchedExerciseDescriptionsList =
-          await user.functions.exerciseDescriptionsHandler();
-        setExerciseDescriptionsList(fetchedExerciseDescriptionsList);
       } catch (err) {
         console.error("Failed to log in", err);
       }
@@ -45,6 +46,7 @@ function CreateExercise() {
     const updatedText = textRef.current.value;
     const fullDuration = `Start ${startDuration}h | End ${endDuration}h`;
 
+    //formatando números fornecidos pelo react-timepicker da parte de horário.
     const numeric1 = Number(startDuration.replace(/\D/g, ""));
     const numeric2 = Number(endDuration.replace(/\D/g, ""));
 
@@ -92,7 +94,7 @@ function CreateExercise() {
     <div className="center">
       <h2>Create New Exercise Log</h2>
       <br />
-      <div class="shadow-lg">
+      <div className="shadow-lg">
       <form onSubmit={submitHandler}>
         <div className="form-group">
         <div>
@@ -115,15 +117,14 @@ function CreateExercise() {
             <div>
               <h5>Exercise Type </h5>
               <select className="form-select text-center" required ref={descriptionRef}>
-                {exerciseDescriptionsList
-                  ? exerciseDescriptionsList.map(function (exercise) {
+                {exerciseTypesList.map(function (exercise) {
                       return (
-                        <option key={exercise.name} value={exercise.name}>
-                          {exercise.name}
+                        <option key={exercise} value={exercise}>
+                          {exercise}
                         </option>
                       );
                     })
-                  : null}
+                  }
               </select>
             </div>
             <br />
@@ -153,15 +154,15 @@ function CreateExercise() {
               </h5>
               <br />
 
-            <hr class="bg-danger border-2 border-top border-dark"></hr>
+            <hr className="bg-danger border-2 border-top border-dark"></hr>
             <h5>Date </h5>
             <DatePicker  selected={date} onChange={(d) => setDate(d)} />
             <br />
             <br />
 
           </div>
-          <label for="textarea" class="form-label">Description</label>
-          <input ref={textRef} type="text" class="form-control" id="textarea" maxlength="45"></input>
+          <label htmlFor="textarea" className="form-label">Description</label>
+          <input ref={textRef} type="text" className="form-control" id="textarea" maxLength="45"></input>
             <br />
             <input
               type="submit"
