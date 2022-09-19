@@ -17,15 +17,15 @@ function CreateExercise() {
   const textRef = useRef();
 
   //Alterando Refs de acordo com dados salvos no Context
-  console.log(exerciseData)
-  descriptionRef.current.selected = exerciseData[0].description
-  textRef.current.value = exerciseData[0].text
+
 
 
   //States
   const [date, setDate] = useState("");
   const [startDuration, setStartDuration] = useState();
   const [endDuration, setEndDuration] = useState();
+
+  console.log(exerciseData[0]._id)
 
 
   async function submitHandler(event) {
@@ -39,6 +39,7 @@ function CreateExercise() {
     const numeric2 = Number(endDuration.replace(/\D/g, ""));
 
     let exercise = {
+      _id: exerciseData[0]._id,
       username: usernameRef.current.value,
       description: descriptionRef.current.value,
       duration: fullDuration,
@@ -68,10 +69,11 @@ function CreateExercise() {
         } else if (exercise.description === "Climb") {
           exercise.style = "https://i.imgur.com/Jepp0Lx.jpg";
         }
-        user.functions.createExerciseHandler(exercise);
-        console.log(exercise);
-        swal("Exercise Added!");
-        setTimeout(() => (window.location = "/"), 2500);
+        user.functions.updateExercise(exercise._id, exercise)
+        console.log(exercise)
+
+        swal("Exercise updated!");
+        //setTimeout(() => (window.location = "/"), 2500);
       }
     } catch (err) {
       console.error("Failed to log in", err);
@@ -89,8 +91,8 @@ function CreateExercise() {
           <div className="form-control">
             <div>
               <h5>Username</h5>
-              <select className="form-select text-center" required ref={usernameRef}>
-                <option>{exerciseData[0].username}</option>
+              <select className="form-select text-center" required ref={usernameRef} disabled>
+                <option>{exerciseData[0] ? exerciseData[0].username : null }</option>
               </select>
             </div>
             <br />
@@ -98,8 +100,14 @@ function CreateExercise() {
               <h5>Exercise Type </h5>
               <select className="form-select text-center" required ref={descriptionRef}>
                 {exerciseTypesList.map(function (exercise) {
+                  //definindo qual option vai ganhar atributo selected baseado na exerciseData do Context
+                  let isselected = false
+                  if (exercise === exerciseData[0].description) {
+                    isselected = true
+                  }
+                  //retorna todos os tipos de exercício com o exercício anterior selecionado
                       return (
-                        <option key={exercise} value={exercise}>
+                        <option key={exercise} value={exercise} selected={isselected}>
                           {exercise}
                         </option>
                       );
@@ -142,7 +150,7 @@ function CreateExercise() {
 
           </div>
           <label htmlFor="textarea" className="form-label">Description</label>
-          <input ref={textRef} type="text" className="form-control" id="textarea" maxLength="45"></input>
+          <input ref={textRef} type="text" className="form-control" id="textarea" maxLength="45" defaultValue={exerciseData[0].text}></input>
             <br />
             <input
               type="submit"

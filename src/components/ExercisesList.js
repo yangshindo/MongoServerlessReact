@@ -42,7 +42,7 @@ async function deleteExercise(id) {
         user.functions.deleteHandler(id);
         setExerciselist((prevValue) => {
         return prevValue.filter(ex => ex._id !== id)})
-        swal(`Exercise id: ${id} deleted`)
+        swal(`Exercise deleted`)
     } 
     catch(err) 
     {
