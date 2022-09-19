@@ -1,6 +1,7 @@
 body {
-  background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(162, 158, 158));
+ background-image: linear-gradient(to right, rgb(246, 241, 241), rgba(185, 180, 174, 0.974)); 
 }
+
 
 .center {
   display: block;
@@ -43,7 +44,7 @@ body {
 }
 
 .paint_block {
-  opacity: 80%;
+  opacity: 85%;
   height: 400px;
   width: 300px;
   background-color: blanchedalmond;
