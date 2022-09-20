@@ -222,7 +222,7 @@ function CreateExercise() {
                     type="text"
                     className="form-control"
                     id="textarea"
-                    maxLength="45"
+                    maxLength="35"
                     defaultValue={exerciseData[0].text}
                   ></input>
                 </div>
